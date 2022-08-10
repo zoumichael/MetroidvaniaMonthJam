@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.IDLE;
         }
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
