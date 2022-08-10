@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlatformDropDown : MonoBehaviour
 {
     [SerializeField] private float waitTimeBeforeFall;
+    [SerializeField] private GameObject player;
+
+    private Rigidbody2D playerRigidBody;
 
     private PlatformEffector2D pe;
     private float waitTime;
@@ -13,12 +16,27 @@ public class PlatformDropDown : MonoBehaviour
     void Start()
     {
         pe = GetComponent<PlatformEffector2D>();
+        playerRigidBody = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         checkFallDown();
+        removeEdgeBounce();
+    }
+
+    void removeEdgeBounce()
+    {
+        if(playerRigidBody.velocity.y > 0f)
+        {
+            Debug.Log("0");
+            pe.surfaceArc = 0f;
+        }
+        else
+        {
+            pe.surfaceArc = 180f;
+        }
     }
 
     void checkFallDown()
