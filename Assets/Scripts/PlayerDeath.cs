@@ -14,11 +14,9 @@ public class PlayerDeath : MonoBehaviour
         startPosition = transform.position;
     }
 
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Spikes"))
+        if (collision.gameObject.CompareTag("Danger"))
         {
             Die();
         }

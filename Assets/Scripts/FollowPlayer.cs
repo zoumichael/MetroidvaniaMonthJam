@@ -26,6 +26,9 @@ public class FollowPlayer : MonoBehaviour
     private float targetVerticalPan;
     private float currentVerticalPan;
 
+    // Handles Room Boundaries
+    public float upBound, downBound, leftBound, rightBound;
+
 
     [SerializeField] private float timeHoldForCameraPanDown;
     private float waitTimeForCameraPanDown;
@@ -44,7 +47,11 @@ public class FollowPlayer : MonoBehaviour
 
         targetVerticalPan = verticalPan;
         currentVerticalPan = verticalPan;
-        
+
+        upBound = 999;
+        downBound = -999;
+        leftBound = -999;
+        rightBound = 999;
     }
 
     // Update is called once per frame
@@ -88,11 +95,19 @@ public class FollowPlayer : MonoBehaviour
             }
         }
 
-        transform.position = new Vector3(
-            player.transform.position.x + currentHorizontalPan,
-            player.transform.position.y + currentVerticalPan,
-            transform.position.z
-        );
+        float finalX = player.transform.position.x + currentHorizontalPan;
+        if (finalX > rightBound)
+            finalX = rightBound;
+        else if (finalX < leftBound)
+            finalX = leftBound;
+
+        float finalY = player.transform.position.y + currentVerticalPan;
+        if (finalY > upBound)
+            finalY = upBound;
+        else if (finalY < downBound)
+            finalY = downBound;
+
+        transform.position = new Vector3(finalX, finalY, transform.position.z);
     }
 
     void UpdateDirection()
@@ -140,4 +155,12 @@ public class FollowPlayer : MonoBehaviour
             }
         }
     }
+
+    // Accessors and Mutators
+
+    public void setUpBound(float val) { upBound = val; }
+    public void setDownBound(float val) { downBound = val; }
+    public void setLeftBound(float val) { leftBound = val; }
+    public void setRightBound(float val) { rightBound = val; }
+
 }
