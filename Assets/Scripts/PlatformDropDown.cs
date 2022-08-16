@@ -18,6 +18,11 @@ public class PlatformDropDown : MonoBehaviour
         pe = GetComponent<PlatformEffector2D>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
     }
+    void Awake()
+    {
+        pe = GetComponent<PlatformEffector2D>();
+        playerRigidBody = player.GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
