@@ -17,6 +17,8 @@ public class PlayerRespawn : MonoBehaviour
 
     public GameObject platformPrefab;
 
+    [SerializeField] float spawnPlatformYOffset;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,7 +49,11 @@ public class PlayerRespawn : MonoBehaviour
             if (waitTime <= 0)
             {
                 waitTime = waitTimeBeforeRegerminate;
-                Instantiate(platformPrefab, transform.position, Quaternion.identity);
+                Vector3 platformSpawnLocation = new Vector3(
+                                                        transform.position.x,
+                                                        transform.position.y + spawnPlatformYOffset,
+                                                        transform.position.z);
+                Instantiate(platformPrefab, platformSpawnLocation, Quaternion.identity);
                 RespawnPlayer();
             }
             else

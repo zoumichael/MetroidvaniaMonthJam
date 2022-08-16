@@ -8,6 +8,7 @@ public class PlatformDropDown : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private Rigidbody2D playerRigidBody;
+    private BoxCollider2D box;
 
     private PlatformEffector2D pe;
     private float waitTime;
@@ -17,11 +18,13 @@ public class PlatformDropDown : MonoBehaviour
     {
         pe = GetComponent<PlatformEffector2D>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
+        box = GetComponent<BoxCollider2D>();
     }
     void Awake()
     {
         pe = GetComponent<PlatformEffector2D>();
         playerRigidBody = player.GetComponent<Rigidbody2D>();
+        box = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -36,11 +39,13 @@ public class PlatformDropDown : MonoBehaviour
         if(playerRigidBody.velocity.y > 0f)
         {
             Debug.Log("0");
-            pe.surfaceArc = 0f;
+            box.size = new Vector2(0, 0);
+            //pe.surfaceArc = 90f;
         }
         else
         {
-            pe.surfaceArc = 180f;
+            //pe.surfaceArc = 180f;
+            box.size = new Vector2(1, 0.05f);
         }
     }
 

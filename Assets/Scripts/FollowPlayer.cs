@@ -48,10 +48,12 @@ public class FollowPlayer : MonoBehaviour
         targetVerticalPan = verticalPan;
         currentVerticalPan = verticalPan;
 
+        /*
         upBound = 999;
         downBound = -999;
         leftBound = -999;
         rightBound = 999;
+        */
     }
 
     // Update is called once per frame
