@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
+    public static bool CanGerminate;
+
     [SerializeField] private LayerMask jumpableGround;
 
     [SerializeField] private float respawnX;
@@ -27,7 +29,10 @@ public class PlayerRespawn : MonoBehaviour
 
     private void Update()
     {
-        Regerminate();
+        if (CanGerminate)
+        {
+            Regerminate();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,6 +40,12 @@ public class PlayerRespawn : MonoBehaviour
         if(collision.CompareTag("Danger"))
         {
             RespawnPlayer();
+        }
+
+        if(collision.gameObject.name == "PlatformPowerup")
+        {
+            CanGerminate = true;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -54,7 +65,7 @@ public class PlayerRespawn : MonoBehaviour
                                                         transform.position.y + spawnPlatformYOffset,
                                                         transform.position.z);
                 Instantiate(platformPrefab, platformSpawnLocation, Quaternion.identity);
-                RespawnPlayer();
+                //RespawnPlayer();
             }
             else
             {
