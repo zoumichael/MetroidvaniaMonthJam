@@ -43,7 +43,7 @@ public class PlayerAttackAndDamage : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            createAttack();
         }
     }
 

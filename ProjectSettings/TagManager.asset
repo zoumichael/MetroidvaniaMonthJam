@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomTransition
   - Danger
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
