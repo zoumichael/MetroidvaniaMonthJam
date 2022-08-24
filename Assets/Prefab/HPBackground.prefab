@@ -89,7 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa37087e3fbcddd4db4d21125ab0fb24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthCounter: []
   HPLeft: -80
   HPOffset: 50
-  hpPrefab: {fileID: 1972674556891124946, guid: 6043cb7bb0261ae448bb6538bc805c79, type: 3}
+  hpPrefab: {fileID: 5863911221130171796, guid: 99a2bb449046cd4458f9678228267b0d, type: 3}
+  FULLHP: {fileID: 21300000, guid: cb90c99eeab4efc4e96e1cec0a8e54be, type: 3}
+  EMPTYHP: {fileID: 21300000, guid: 3e507b208530b0747b9a75fc10eca207, type: 3}
