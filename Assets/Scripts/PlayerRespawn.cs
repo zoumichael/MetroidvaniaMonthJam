@@ -11,6 +11,8 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private float respawnX;
     [SerializeField] private float respawnY;
 
+    [SerializeField] private GameObject hpManager;
+
     private BoxCollider2D coll;
     private Rigidbody2D rb;
 
@@ -39,6 +41,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         if(collision.CompareTag("Danger"))
         {
+            hpManager.GetComponent<ManageHP>().takeDamage();
             RespawnPlayer();
         }
 

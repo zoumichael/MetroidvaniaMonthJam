@@ -171,6 +171,7 @@ MonoBehaviour:
     m_Bits: 64
   respawnX: 0
   respawnY: 0
+  hpManager: {fileID: 8108243309882593597, guid: 2cdb7699fe537884a9cc5713c500fbc6, type: 3}
   waitTimeBeforeRegerminate: 0.1
   platformPrefab: {fileID: 1797759936087315162, guid: 15cd2d3c9ab144e4a8c72ae3fac5115c, type: 3}
   spawnPlatformYOffset: 0
@@ -186,3 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898030a2852ff0b4d92fbf326a7451b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeAttackPrefab: {fileID: 5837160553961974960, guid: 6a49a9d601ad38940aa03675b1404230, type: 3}
+  meleeAttackRange: 1
