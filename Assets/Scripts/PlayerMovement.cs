@@ -15,6 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private AudioSource jumpSoundEffect;
 
+    [SerializeField] private static int maxJumps = 1;
+    public int currJump = 1;
+
+    [SerializeField] private float airborneMovespeed;
+
+    private bool isGliding;
+    static bool canGlide = true;
+    [SerializeField] private float glideDropSpeed;
+    [SerializeField] private float normalDropSpeed;
+
     private enum MovementState
     {
         IDLE,
@@ -36,43 +46,88 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         UpdateMovement();
+        UpdateAnimation();
     }
 
     private void UpdateMovement()
     {
-        MovementState state;
-
         float dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        
+        // Need different horizontal movement speeds if you are in the air and not gliding. 
+        if(IsGrounded() || isGliding)
+        {
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        }
+        else
+        {
+            float newMoveSpeed = rb.velocity.x + dirX * moveSpeed * airborneMovespeed;
+            if (newMoveSpeed > moveSpeed)
+                newMoveSpeed = moveSpeed;
+            else if (newMoveSpeed < -moveSpeed)
+                newMoveSpeed = -moveSpeed;
+            rb.velocity = new Vector2(newMoveSpeed, rb.velocity.y);
+        }
 
+        // Jump 
+        if (Input.GetKeyDown(KeyCode.W) && currJump > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            currJump--;
+            isGliding = false;
+        }
+        // Reset jump counter when you land on the ground.
+        if(currJump < maxJumps && IsGrounded())
+        {
+            currJump = maxJumps;
+        }
+
+        // Handle Gliding Mechanics
+        if(Input.GetKeyDown(KeyCode.F) && !IsGrounded() && canGlide)
+        {
+            isGliding = true;
+        }
+        if(!Input.GetKey(KeyCode.F))
+        {
+            isGliding = false;
+        }
+
+        // Hard cap on fall speed
+        if (isGliding)
+        {
+            if(rb.velocity.y < glideDropSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, glideDropSpeed);
+            }
+        }
+        else
+        {
+            if (rb.velocity.y < normalDropSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, normalDropSpeed);
+            }
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        float dirX = Input.GetAxisRaw("Horizontal");
         if (dirX > 0f)
         {
-            state = MovementState.RUNNING;
             sprite.flipX = false;
 
         }
         else if (dirX < 0f)
         {
-            state = MovementState.RUNNING;
             sprite.flipX = true;
         }
         else
         {
-            state = MovementState.IDLE;
         }
-
-        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-        }
-
         if (rb.velocity.y > 0.1f)
         {
-            state = MovementState.JUMPING;
         }
         else if (rb.velocity.y < -0.1f)
         {
-            state = MovementState.FALLING;
         }
     }
 

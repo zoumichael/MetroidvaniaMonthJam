@@ -154,6 +154,10 @@ MonoBehaviour:
   jumpSpeed: 14
   moveSpeed: 7
   jumpSoundEffect: {fileID: 0}
+  currJump: 1
+  airborneMovespeed: 0.01
+  glideDropSpeed: -2
+  normalDropSpeed: -25
 --- !u!114 &4692173237415530187
 MonoBehaviour:
   m_ObjectHideFlags: 0
