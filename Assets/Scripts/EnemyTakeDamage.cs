@@ -32,6 +32,8 @@ public class EnemyTakeDamage : MonoBehaviour
         if (collision.CompareTag("PlayerAttack"))
         {
             takeDamage(10.0f, collision);
+            GetComponent<SpawnDew>().SpawnRandomDew(1);
+            Destroy(collision);
         }
     }
 
