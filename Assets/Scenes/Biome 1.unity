@@ -1287,7 +1287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 197.1, y: 67.5, z: -10}
+  m_LocalPosition: {x: 168.2, y: 74.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   room1RightBound: 192
   room2UpBound: 76
   room2DownBound: 67.5
-  room2LeftBound: 188
+  room2LeftBound: 170
   room2RightBound: 197
   usingLeftRight: 1
   room1RespawnX: 37
@@ -144590,11 +144590,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692173237415530191, guid: b7a91d014fe7f9f43b450c5261769f13, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 132.6
+      value: 177.1
       objectReference: {fileID: 0}
     - target: {fileID: 4692173237415530191, guid: b7a91d014fe7f9f43b450c5261769f13, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 70.1
       objectReference: {fileID: 0}
     - target: {fileID: 4692173237415530191, guid: b7a91d014fe7f9f43b450c5261769f13, type: 3}
       propertyPath: m_LocalPosition.z
