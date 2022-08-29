@@ -7,7 +7,7 @@ public class EnemyTakeDamage : MonoBehaviour
     [SerializeField] private float recoil;
 
     [SerializeField] private float maxHP;
-    private float currHP;
+    public float currHP;
 
     [SerializeField] private float timeUntilReset;
 
@@ -41,9 +41,9 @@ public class EnemyTakeDamage : MonoBehaviour
     {
         Debug.Log("Enemy Hit");
         currHP -= dmg;
-        if(maxHP < 0)
+        if(currHP <= 0)
         {
-
+            Destroy(gameObject);
         }
         else
         {
