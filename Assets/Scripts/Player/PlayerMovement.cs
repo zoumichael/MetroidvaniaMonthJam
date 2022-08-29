@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float glideDropSpeed;
     [SerializeField] private float normalDropSpeed;
 
+    // After taking damage, lose control of the player for a while.
+    [SerializeField] private float damageLockOut;
+    private float damageLockOutCounter;
+
     private enum MovementState
     {
         IDLE,
@@ -40,13 +44,27 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+
+        damageLockOutCounter = -1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateMovement();
+        if(damageLockOutCounter < 0)
+        {
+            UpdateMovement();
+        }
+        else
+        {
+            damageLockOutCounter -= Time.deltaTime;
+        }
         UpdateAnimation();
+    }
+
+    public void damaged()
+    {
+        damageLockOutCounter = damageLockOut;
     }
 
     private void UpdateMovement()
@@ -135,4 +153,5 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+
 }

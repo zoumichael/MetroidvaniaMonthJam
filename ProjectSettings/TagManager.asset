@@ -8,6 +8,7 @@ TagManager:
   - Danger
   - PlayerAttack
   - Terrain
+  - Enemy
   layers:
   - Default
   - TransparentFX

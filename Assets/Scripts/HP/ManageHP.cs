@@ -60,5 +60,20 @@ public class ManageHP : MonoBehaviour
         return false;
     }
 
+    public void healToFull()
+    {
+        currentHp = maxHP;
+        Debug.Log("Current HP: " + currentHp);
+        foreach (GameObject go in healthCounter)
+        {
+            go.GetComponent<HPCounterChange>().SetFullHP();
+        }
+    }
+
+    public int getCurrHP()
+    {
+        return currentHp;
+    }
+
 
 }

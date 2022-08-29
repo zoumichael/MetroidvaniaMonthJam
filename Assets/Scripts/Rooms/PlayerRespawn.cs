@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    public static bool CanGerminate;
 
     [SerializeField] private LayerMask jumpableGround;
 
@@ -13,27 +12,31 @@ public class PlayerRespawn : MonoBehaviour
 
     [SerializeField] private GameObject hpManager;
 
-    private BoxCollider2D coll;
     private Rigidbody2D rb;
 
-    [SerializeField] private float waitTimeBeforeRegerminate;
-    private float waitTime;
+    [SerializeField] private float recoil;
 
-    public GameObject platformPrefab;
-
-    [SerializeField] float spawnPlatformYOffset;
+    // After taking damage, prevent you from taking damage after a while.
+    [SerializeField] private float damageLockOut;
+    private float damageLockOutCounter;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if (CanGerminate)
+        damageLockOutCounter -= Time.deltaTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && damageLockOutCounter < 0)
         {
-            Regerminate();
+            Debug.Log("Collided with Enemy");
+            TakeDamage(collision);
+            damageLockOutCounter = damageLockOut;
         }
     }
 
@@ -42,50 +45,50 @@ public class PlayerRespawn : MonoBehaviour
         if(collision.CompareTag("Danger"))
         {
             hpManager.GetComponent<ManageHP>().takeDamage();
-            RespawnPlayer();
+            Debug.Log("Collided with Danger");
+            //RespawnPlayer();
         }
 
         if(collision.gameObject.name == "PlatformPowerup")
         {
-            CanGerminate = true;
+            GetComponent<PlayerMakePlatform>().SetCanGerminate(true);
             Destroy(collision.gameObject);
         }
+
+        
     }
 
-    public void Regerminate()
-    {
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            waitTime = waitTimeBeforeRegerminate;
-        }
-        if (Input.GetKey(KeyCode.K) && IsGrounded())
-        {
-            if (waitTime <= 0)
-            {
-                waitTime = waitTimeBeforeRegerminate;
-                Vector3 platformSpawnLocation = new Vector3(
-                                                        transform.position.x,
-                                                        transform.position.y + spawnPlatformYOffset,
-                                                        transform.position.z);
-                Instantiate(platformPrefab, platformSpawnLocation, Quaternion.identity);
-                //RespawnPlayer();
-            }
-            else
-            {
-                waitTime -= Time.deltaTime;
-            }
-        }
-    }
+    
 
-    private bool IsGrounded()
-    {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-    }
 
     public void RespawnPlayer()
     {
         rb.transform.position = new Vector3(respawnX, respawnY, 0);
     }
+
+    public void TakeDamage(Collision2D collision)
+    {
+        // Update HP Bar
+        hpManager.GetComponent<ManageHP>().takeDamage();
+
+        if(hpManager.GetComponent<ManageHP>().getCurrHP() <= 0)
+        {
+            hpManager.GetComponent<ManageHP>().healToFull();
+            RespawnPlayer();
+            return;
+        }
+
+        // Add a recoil effect.
+        float XOffset = transform.position.x - collision.gameObject.transform.position.x;
+        float YOffset = transform.position.y - collision.gameObject.transform.position.y;
+        Debug.Log("X: " + XOffset + " Y: " + YOffset);
+        rb.velocity = new Vector3(XOffset / Mathf.Abs(XOffset) * recoil, YOffset / Mathf.Abs(YOffset) * recoil, 0);
+
+        // Lock Player Movement
+        GetComponent<PlayerMovement>().damaged();
+    }
+
+
 
     public void SetRespawnX(float val) { respawnX = val; }
     public void SetRespawnY(float val) { respawnY = val; }

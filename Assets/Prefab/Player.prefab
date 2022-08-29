@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4692173237415530186}
   - component: {fileID: 4692173237415530187}
   - component: {fileID: 7344214605023576906}
+  - component: {fileID: 5502320654111368179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -158,6 +159,7 @@ MonoBehaviour:
   airborneMovespeed: 0.01
   glideDropSpeed: -2
   normalDropSpeed: -25
+  damageLockOut: 0.3
 --- !u!114 &4692173237415530187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,9 +178,7 @@ MonoBehaviour:
   respawnX: 0
   respawnY: 0
   hpManager: {fileID: 8108243309882593597, guid: 2cdb7699fe537884a9cc5713c500fbc6, type: 3}
-  waitTimeBeforeRegerminate: 0.1
-  platformPrefab: {fileID: 1797759936087315162, guid: 15cd2d3c9ab144e4a8c72ae3fac5115c, type: 3}
-  spawnPlatformYOffset: 0
+  recoil: 4
 --- !u!114 &7344214605023576906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,3 +193,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeAttackPrefab: {fileID: 5837160553961974960, guid: 6a49a9d601ad38940aa03675b1404230, type: 3}
   meleeAttackRange: 1
+--- !u!114 &5502320654111368179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692173237415530193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f48a89cbc014d4cbab5ecc1dbb48b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformPrefab: {fileID: 1797759936087315162, guid: 15cd2d3c9ab144e4a8c72ae3fac5115c, type: 3}
+  waitTimeBeforeRegerminate: 0.2
+  spawnPlatformYOffset: 0
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
