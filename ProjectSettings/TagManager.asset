@@ -13,14 +13,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
   - Ground
-  - 
+  - decor
   - Enemy
   - Dew
-  - 
+  - bg
   - 
   - 
   - 
