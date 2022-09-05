@@ -21,6 +21,7 @@ public class WalkingEnemy : MonoBehaviour
 
     void Update()
     {
+        /*
         if (resetting)
         {
             returnToRespawn();
@@ -33,6 +34,7 @@ public class WalkingEnemy : MonoBehaviour
         {
             moveToWaitPoint();
         }
+        */
     }
 
     void followPlayer()
