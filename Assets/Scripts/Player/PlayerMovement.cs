@@ -34,8 +34,9 @@ public class PlayerMovement : MonoBehaviour
         IDLE,
         RUNNING,
         JUMPING,
-        FALLING
-        //idle=0,running=1,jumping=2,falling=3
+        FALLING,
+        GLIDING
+        //idle=0,running=1,jumping=2,falling=3,glide
     }
     private MovementState moveState = MovementState.IDLE;
 
@@ -138,6 +139,18 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y < normalDropSpeed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, normalDropSpeed);
+            }
+        }
+        if (rb.velocity.y > 0.1f)
+        {
+            state = MovementState.JUMPING;
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            state = MovementState.FALLING;
+            if (isGliding)
+            {
+                state = MovementState.GLIDING;
             }
         }
         animator.SetInteger("moveState", (int) state);
