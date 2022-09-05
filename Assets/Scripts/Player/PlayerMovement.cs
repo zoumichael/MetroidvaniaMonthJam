@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
+        MovementState state;
         float dirX = Input.GetAxisRaw("Horizontal");
         if(dirX > 0f)
         {
