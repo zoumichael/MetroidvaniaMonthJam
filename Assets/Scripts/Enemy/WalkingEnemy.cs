@@ -19,9 +19,17 @@ public class WalkingEnemy : MonoBehaviour
     [SerializeField] private float tetherRange;
     [SerializeField] private float maxDistanceFromSpawn;
 
+    private enum MovementState
+    {
+        IDLE,
+        RUNNING
+        //idle=0,running=1
+    }
+    private MovementState moveState = MovementState.IDLE;
+
     void Update()
     {
-        /*
+        
         if (resetting)
         {
             returnToRespawn();
@@ -34,7 +42,7 @@ public class WalkingEnemy : MonoBehaviour
         {
             moveToWaitPoint();
         }
-        */
+        //GetComponent<Animator>().SetInteger("moveState", (int) moveState);
     }
 
     void followPlayer()
@@ -51,18 +59,30 @@ public class WalkingEnemy : MonoBehaviour
             Vector2 targetPosition = player.transform.position;
             targetPosition.y = transform.position.y;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+
+            moveState = MovementState.RUNNING;
+            flipSprite(targetPosition.x);
+        }
+        else
+        {
+            moveState = MovementState.IDLE;
         }
     }
 
     void returnToRespawn()
     {
-        if (Vector2.Distance(respawnObject.transform.position, transform.position) < .1f)
+        Debug.Log(Vector2.Distance(respawnObject.transform.position, transform.position));
+        if (Vector2.Distance(respawnObject.transform.position, transform.position) < 1f)
         {
+            Debug.Log("Reset");
             resetting = false;
         }
         Vector2 targetPosition = respawnObject.transform.position;
         targetPosition.y = transform.position.y;
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+        flipSprite(targetPosition.x);
+
+        moveState = MovementState.RUNNING;
     }
 
     void moveToWaitPoint()
@@ -73,7 +93,7 @@ public class WalkingEnemy : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance(waypts[currentWayPoint].transform.position, transform.position) < .1f)
+        if (Vector2.Distance(waypts[currentWayPoint].transform.position, transform.position) < 1f)
         {
             currentWayPoint++;
             if (currentWayPoint >= waypts.Length)
@@ -84,5 +104,20 @@ public class WalkingEnemy : MonoBehaviour
         Vector2 targetPosition = waypts[currentWayPoint].transform.position;
         targetPosition.y = transform.position.y;
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+        flipSprite(targetPosition.x);
+
+        moveState = MovementState.RUNNING;
+    }
+
+    void flipSprite(float targetX)
+    {
+        if(transform.position.x < targetX)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 }
