@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RespawnEnemy : MonoBehaviour
 {
+    public GameObject meleeAttackPrefab;
+    public GameObject[] waypts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +18,6 @@ public class RespawnEnemy : MonoBehaviour
     {
         
     }
+
+
 }
