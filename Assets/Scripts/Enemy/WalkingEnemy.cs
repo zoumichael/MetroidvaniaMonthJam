@@ -9,7 +9,7 @@ public class WalkingEnemy : MonoBehaviour
 
     [SerializeField] private GameObject[] waypts;
     private int currentWayPoint = 0;
-
+    public Animator animator;
     [SerializeField] private GameObject player;
 
     public bool aggroOntoPlayer = false;
@@ -42,7 +42,8 @@ public class WalkingEnemy : MonoBehaviour
         {
             moveToWaitPoint();
         }
-        //GetComponent<Animator>().SetInteger("moveState", (int) moveState);
+        //animator.SetInteger("moveState", (int) state);
+        GetComponent<Animator>().SetInteger("moveState", (int) moveState);
     }
 
     void followPlayer()

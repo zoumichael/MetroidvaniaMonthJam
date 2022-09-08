@@ -51,6 +51,8 @@ GameObject:
   - component: {fileID: 1529934620618974902}
   - component: {fileID: 680761092933075308}
   - component: {fileID: 346671377}
+  - component: {fileID: 7412441636330747791}
+  - component: {fileID: 5226416552226055174}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -226,6 +228,41 @@ MonoBehaviour:
   dewPrefab: {fileID: 7031649148369747561, guid: 1fef73f85b8a6aa479aba30784ba124a, type: 3}
   dewInitialY: 7
   dewXRange: 3
+--- !u!111 &7412441636330747791
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529934620618974900}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 288a4e9c7895da84fa0a117d85ab939c, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!95 &5226416552226055174
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529934620618974900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25044306a96e9db4dadec5456bc0ede5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2111080458578674217
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,3 +480,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3629d0ddb2105c499df66c8c790e836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeAttackPrefab: {fileID: 0}
+  waypts: []
