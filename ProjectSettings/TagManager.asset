@@ -9,6 +9,7 @@ TagManager:
   - PlayerAttack
   - Terrain
   - Enemy
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Enemy
   - Dew
   - bg
-  - 
+  - EnemyAttack
   - 
   - 
   - 
