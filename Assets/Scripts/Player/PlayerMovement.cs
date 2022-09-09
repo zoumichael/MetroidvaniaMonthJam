@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
-
+    
     [SerializeField] private LayerMask jumpableGround;
 
     [SerializeField] private float jumpSpeed = 14f;
@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private static int maxJumps = 1;
     public int currJump = 1;
-
+    public Animator animator;
     [SerializeField] private float airborneMovespeed;
 
     private bool isGliding;
@@ -34,7 +34,9 @@ public class PlayerMovement : MonoBehaviour
         IDLE,
         RUNNING,
         JUMPING,
-        FALLING
+        FALLING,
+        GLIDING
+        //idle=0,running=1,jumping=2,falling=3,glide
     }
     private MovementState moveState = MovementState.IDLE;
 
@@ -44,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         damageLockOutCounter = -1f;
     }
@@ -69,8 +72,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
+        MovementState state;
         float dirX = Input.GetAxisRaw("Horizontal");
-        
+        if(dirX > 0f)
+        {
+            state = MovementState.RUNNING;
+            sprite.flipX = false;
+
+        }
+        else if(dirX < 0f)
+        {
+            state = MovementState.RUNNING;
+            sprite.flipX = true;
+        }
+        else
+        {
+            state = MovementState.IDLE;
+        }
         // Need different horizontal movement speeds if you are in the air and not gliding. 
         if(IsGrounded() || isGliding)
         {
@@ -124,6 +142,19 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, normalDropSpeed);
             }
         }
+        if (rb.velocity.y > 0.1f)
+        {
+            state = MovementState.JUMPING;
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            state = MovementState.FALLING;
+            if (isGliding)
+            {
+                state = MovementState.GLIDING;
+            }
+        }
+        animator.SetInteger("moveState", (int) state);
     }
 
     private void UpdateAnimation()

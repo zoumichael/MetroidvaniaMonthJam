@@ -50,7 +50,13 @@ public class PlayerAttackAndDamage : MonoBehaviour
     void createAttack()
     {
         Vector3 attackSpawnLocation = new Vector3(transform.position.x + meleeAttackRange, transform.position.y, transform.position.z);
+        Debug.Log(attackSpawnLocation);
         attack = Instantiate(meleeAttackPrefab, attackSpawnLocation, Quaternion.identity);
+
+        if(!facingRight)
+        {
+            attack.GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 
     void destroyAttack()
